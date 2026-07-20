@@ -1,10 +1,35 @@
+import { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { getUsers } from "../../services/userService";
 
 function Dashboard() {
   const { logout } = useAuth();
 
+  useEffect(() => {
+    async function loadUsers() {
+      try {
+        const users = await getUsers();
+
+        console.log(
+          "[DASHBOARD] Usuários carregados:",
+          users
+        );
+
+      } catch (error) {
+        console.error(
+          "[DASHBOARD] Erro ao buscar usuários:",
+          error
+        );
+      }
+    }
+
+    loadUsers();
+  }, []);
+
   function handleLogout() {
-    console.log("[DASHBOARD] Botão de logout pressionado");
+    console.log(
+      "[DASHBOARD] Botão de logout pressionado"
+    );
 
     logout();
   }

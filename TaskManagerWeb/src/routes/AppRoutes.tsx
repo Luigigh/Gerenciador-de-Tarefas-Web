@@ -6,6 +6,7 @@ import {
 
 import Login from "../pages/Login/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
   return (
@@ -13,14 +14,18 @@ function AppRoutes() {
       <Routes>
 
         <Route
-          path="/"
+          path="/login"
           element={<Login />}
         />
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+        <Route element={<ProtectedRoute />}>
+
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
+
+        </Route>
 
       </Routes>
     </BrowserRouter>
