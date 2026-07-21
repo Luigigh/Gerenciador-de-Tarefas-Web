@@ -1,58 +1,134 @@
-import { useEffect } from "react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useEffect, useState } from "react";
+import MainLayout from "../../layouts/MainLayout";
+import StatCard from "../../components/dashboard/StatCard";
+import UserTable from "../../components/dashboard/UserTable";
 import { getUsers } from "../../services/userService";
+import type { User } from "../../types/User";
 
 function Dashboard() {
-  const { logout } = useAuth();
+
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadUsers() {
-      try {
-        const users = await getUsers();
 
-        console.log(
-          "[DASHBOARD] Usuários carregados:",
-          users
-        );
+    async function loadUsers() {
+
+      try {
+
+        console.log("[DASHBOARD] Buscando usuários");
+
+        const data = await getUsers();
+
+        setUsers(data);
 
       } catch (error) {
+
         console.error(
-          "[DASHBOARD] Erro ao buscar usuários:",
+          "[DASHBOARD] Erro ao carregar usuários:",
           error
         );
+
+      } finally {
+
+        setLoading(false);
+
       }
+
     }
 
     loadUsers();
+
   }, []);
 
-  function handleLogout() {
-    console.log(
-      "[DASHBOARD] Botão de logout pressionado"
-    );
+  const totalUsers = users.length;
 
-    logout();
-  }
+  const activeUsers = users.filter(
+    (user) => user.status === "ACTIVE"
+  ).length;
+
+  const adminUsers = users.filter(
+    (user) => user.role === "ADMIN"
+  ).length;
+
+  const inactiveUsers = users.filter(
+    (user) => user.status === "INACTIVE"
+  ).length;
 
   return (
-    <main className="min-h-screen bg-slate-100 p-8">
 
-      <h1 className="text-3xl font-bold text-slate-800">
-        Dashboard
-      </h1>
+    <MainLayout>
 
-      <p className="mt-2 text-slate-600">
-        Você está autenticado no TaskManager.
-      </p>
+      <div className="space-y-8">
 
-      <button
-        onClick={handleLogout}
-        className="mt-6 rounded-lg bg-red-600 px-5 py-3 font-semibold text-white hover:bg-red-700"
-      >
-        Sair
-      </button>
+        {/* Header */}
 
-    </main>
+        <div>
+
+          <h1 className="text-3xl font-bold text-gray-900">
+            Dashboard
+          </h1>
+
+          <p className="mt-2 text-gray-500">
+            Bem-vindo de volta, Luigi. Aqui está um resumo do sistema.
+          </p>
+
+        </div>
+
+        {/* Cards */}
+
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+
+          <StatCard
+            title="Total de usuários"
+            value={totalUsers}
+            description="Usuários cadastrados"
+            icon="♙"
+          />
+
+          <StatCard
+            title="Usuários ativos"
+            value={activeUsers}
+            description="Contas ativas no sistema"
+            icon="✓"
+          />
+
+          <StatCard
+            title="Administradores"
+            value={adminUsers}
+            description="Usuários com acesso administrativo"
+            icon="★"
+          />
+
+          <StatCard
+            title="Usuários inativos"
+            value={inactiveUsers}
+            description="Contas desativadas"
+            icon="○"
+          />
+
+        </div>
+
+        {/* Tabela */}
+
+        {loading ? (
+
+          <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
+            <p className="text-gray-500">
+              Carregando usuários...
+            </p>
+          </div>
+
+        ) : (
+
+          <UserTable users={users} />
+
+        )}
+
+      </div>
+
+    </MainLayout>
+
   );
 }
 

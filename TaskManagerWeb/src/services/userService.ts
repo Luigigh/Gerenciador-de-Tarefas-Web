@@ -1,12 +1,12 @@
 import api from "../api/axios";
+import type { User } from "../types/User";
 
+export async function getUsers(): Promise<User[]> {
+  console.log("[USER SERVICE] Buscando usuários");
 
-export async function getUsers() {
-    console.log("[USER SERVICE] Buscando usuários");
+  const response = await api.get<User[]>("/users");
 
-    const response = await api.get("/users");
+  console.log("[USER SERVICE] Usuários recebidos:", response.data);
 
-    console.log("[USER SERVICE] Usuarios recebidos.");
-
-    return response.data;
+  return response.data;
 }
