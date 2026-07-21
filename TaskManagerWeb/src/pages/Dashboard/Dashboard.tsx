@@ -4,42 +4,48 @@ import StatCard from "../../components/dashboard/StatCard";
 import UserTable from "../../components/dashboard/UserTable";
 import { getUsers } from "../../services/userService";
 import type { User } from "../../types/User";
+import CreateUserModal from "../../components/users/CreateUserModal";
 
 function Dashboard() {
 
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
+
+  async function loadUsers() {
+
+    try {
+  
+      console.log(
+        "[DASHBOARD] Buscando usuários"
+      );
+  
+      const data = await getUsers();
+  
+      setUsers(data);
+  
+    } catch (error) {
+  
+      console.error(
+        "[DASHBOARD] Erro ao carregar usuários:",
+        error
+      );
+  
+    } finally {
+  
+      setLoading(false);
+  
+    }
+  
+  }
+
 
   useEffect(() => {
-
-    async function loadUsers() {
-
-      try {
-
-        console.log("[DASHBOARD] Buscando usuários");
-
-        const data = await getUsers();
-
-        setUsers(data);
-
-      } catch (error) {
-
-        console.error(
-          "[DASHBOARD] Erro ao carregar usuários:",
-          error
-        );
-
-      } finally {
-
-        setLoading(false);
-
-      }
-
-    }
 
     loadUsers();
 
   }, []);
+
 
   const totalUsers = users.length;
 
@@ -121,9 +127,23 @@ function Dashboard() {
 
         ) : (
 
-          <UserTable users={users} />
+          <UserTable 
+            users={users}
+            onCreateUser={() => setIsCreateUserModalOpen(true)}
+            />
 
         )}
+
+        <CreateUserModal
+          isOpen={isCreateUserModalOpen}
+          onClose={() => 
+            setIsCreateUserModalOpen(false)
+          }
+          onUserCreated={() => {
+            setIsCreateUserModalOpen(false);
+            loadUsers();
+          }}
+        />
 
       </div>
 

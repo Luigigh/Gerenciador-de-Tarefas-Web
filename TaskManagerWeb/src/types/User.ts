@@ -9,3 +9,12 @@ export interface User {
     status: string;
     createdAt: string;
 }
+
+export interface CreateUserData{
+    firstname: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    password: string;
+    birth: string;
+}

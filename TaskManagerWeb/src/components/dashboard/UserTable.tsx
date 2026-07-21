@@ -2,9 +2,14 @@ import type { User } from "../../types/User";
 
 interface UserTableProps {
   users: User[];
+  onCreateUser: () => void;
 }
 
-function UserTable({ users }: UserTableProps) {
+function UserTable({ 
+  users,
+  onCreateUser 
+  }: UserTableProps) {
+
     console.log("[USER TABLE] Usuário:", users);
 
 
@@ -23,7 +28,9 @@ function UserTable({ users }: UserTableProps) {
           </p>
         </div>
 
-        <button className="rounded-xl bg-green-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-800">
+        <button 
+          onClick={onCreateUser}
+          className="rounded-xl bg-green-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-800">
           + Novo usuário
         </button>
 
