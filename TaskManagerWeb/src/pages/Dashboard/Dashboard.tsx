@@ -5,6 +5,12 @@ import UserTable from "../../components/dashboard/UserTable";
 import { getUsers } from "../../services/userService";
 import type { User } from "../../types/User";
 import CreateUserModal from "../../components/users/CreateUserModal";
+import {
+  Users,
+  UserCheck,
+  ShieldCheck,
+  UserX,
+} from "lucide-react";
 
 function Dashboard() {
 
@@ -85,33 +91,33 @@ function Dashboard() {
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
 
-          <StatCard
-            title="Total de usuários"
-            value={totalUsers}
-            description="Usuários cadastrados"
-            icon="♙"
-          />
+        <StatCard
+          title="Total de usuários"
+          value={totalUsers}
+          description="Usuários cadastrados"
+          icon={<Users size={22} />}
+        />
 
-          <StatCard
-            title="Usuários ativos"
-            value={activeUsers}
-            description="Contas ativas no sistema"
-            icon="✓"
-          />
+        <StatCard
+          title="Usuários ativos"
+          value={activeUsers}
+          description="Contas ativas no sistema"
+          icon={<UserCheck size={22} />}
+        />
 
-          <StatCard
-            title="Administradores"
-            value={adminUsers}
-            description="Usuários com acesso administrativo"
-            icon="★"
-          />
+        <StatCard
+          title="Administradores"
+          value={adminUsers}
+          description="Usuários com acesso administrativo"
+          icon={<ShieldCheck size={22} />}
+        />
 
-          <StatCard
-            title="Usuários inativos"
-            value={inactiveUsers}
-            description="Contas desativadas"
-            icon="○"
-          />
+        <StatCard
+          title="Usuários inativos"
+          value={inactiveUsers}
+          description="Contas desativadas"
+          icon={<UserX size={22} />}
+        />
 
         </div>
 

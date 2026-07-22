@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createUser } from "../../services/userService";
+import { toast } from "sonner";
 
 interface CreateUserModalProps {
   isOpen: boolean;
@@ -21,6 +22,7 @@ function CreateUserModal({
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [dateBirth, setDateBirth] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) {
     return null;
@@ -32,13 +34,19 @@ function CreateUserModal({
   
     event.preventDefault();
   
+    if (loading) {
+      return;
+    }
+  
+    setLoading(true);
+  
     console.log(
       "[CREATE USER] Enviando dados do usuário"
     );
   
     const userData = {
       firstname: firstName,
-      lastName: lastName,
+      lastName,
       email,
       password,
       phone,
@@ -52,13 +60,14 @@ function CreateUserModal({
   
     try {
   
-      const createdUser = await createUser(
-        userData
-      );
+      await createUser(userData);
   
       console.log(
-        "[CREATE USER] Usuário criado:",
-        createdUser
+        "[CREATE USER] Usuário criado com sucesso"
+      );
+  
+      toast.success(
+        "Usuário criado com sucesso!"
       );
   
       onUserCreated();
@@ -69,6 +78,14 @@ function CreateUserModal({
         "[CREATE USER] Erro ao criar usuário:",
         error
       );
+  
+      toast.error(
+        "Erro ao criar usuário."
+      );
+  
+    } finally {
+  
+      setLoading(false);
   
     }
   
@@ -198,11 +215,15 @@ function CreateUserModal({
             </button>
 
             <button
-              type="submit"
-              className="rounded-xl bg-green-700 px-5 py-3 text-sm font-medium text-white transition hover:bg-green-800"
-            >
-              Criar usuário
-            </button>
+                type="submit"
+                disabled={loading}
+                className="rounded-xl bg-green-700 px-5 py-3 text-sm font-medium text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                {loading
+                    ? "Criando..."
+                    : "Criar usuário"
+                }
+                </button>
 
           </div>
 

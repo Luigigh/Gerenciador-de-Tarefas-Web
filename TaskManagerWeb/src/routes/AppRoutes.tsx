@@ -7,11 +7,17 @@ import {
 import Login from "../pages/Login/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import LandingPage from "../pages/home/landingpage";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+
+        <Route
+          path="/"
+          element={<LandingPage/>}
+        />
 
         <Route
           path="/login"
