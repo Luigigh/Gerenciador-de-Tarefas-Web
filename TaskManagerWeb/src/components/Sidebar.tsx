@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { ROUTES } from "../utils/constants";
 
 const links = [
   { to: ROUTES.DASHBOARD, label: "Dashboard" },

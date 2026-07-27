@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+
 import MainLayout from "../../layouts/MainLayout";
+
 import StatCard from "../../components/dashboard/StatCard";
 import UserTable from "../../components/dashboard/UserTable";
-import { getUsers } from "../../services/userService";
-import type { User } from "../../types/User";
 import CreateUserModal from "../../components/users/CreateUserModal";
+
+import { getUsers } from "../../services/userService";
+
+import type { User } from "../../types/User";
+
 import {
   Users,
   UserCheck,
@@ -12,37 +17,49 @@ import {
   UserX,
 } from "lucide-react";
 
+
 function Dashboard() {
 
   const [users, setUsers] = useState<User[]>([]);
+
   const [loading, setLoading] = useState(true);
-  const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
+
+  const [
+    isCreateUserModalOpen,
+    setIsCreateUserModalOpen
+  ] = useState(false);
+
 
   async function loadUsers() {
 
     try {
-  
+
       console.log(
         "[DASHBOARD] Buscando usuários"
       );
-  
+
       const data = await getUsers();
-  
+
+      console.log(
+        "[DASHBOARD] Usuários recebidos:",
+        data
+      );
+
       setUsers(data);
-  
+
     } catch (error) {
-  
+
       console.error(
         "[DASHBOARD] Erro ao carregar usuários:",
         error
       );
-  
+
     } finally {
-  
+
       setLoading(false);
-  
+
     }
-  
+
   }
 
 
@@ -55,23 +72,28 @@ function Dashboard() {
 
   const totalUsers = users.length;
 
+
   const activeUsers = users.filter(
     (user) => user.status === "ACTIVE"
   ).length;
+
 
   const adminUsers = users.filter(
     (user) => user.role === "ADMIN"
   ).length;
 
+
   const inactiveUsers = users.filter(
     (user) => user.status === "INACTIVE"
   ).length;
+
 
   return (
 
     <MainLayout>
 
       <div className="space-y-8">
+
 
         {/* Header */}
 
@@ -87,75 +109,99 @@ function Dashboard() {
 
         </div>
 
+
         {/* Cards */}
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
 
-        <StatCard
-          title="Total de usuários"
-          value={totalUsers}
-          description="Usuários cadastrados"
-          icon={<Users size={22} />}
-        />
 
-        <StatCard
-          title="Usuários ativos"
-          value={activeUsers}
-          description="Contas ativas no sistema"
-          icon={<UserCheck size={22} />}
-        />
+          <StatCard
+            title="Total de usuários"
+            value={totalUsers}
+            description="Usuários cadastrados"
+            icon={<Users size={22} />}
+          />
 
-        <StatCard
-          title="Administradores"
-          value={adminUsers}
-          description="Usuários com acesso administrativo"
-          icon={<ShieldCheck size={22} />}
-        />
 
-        <StatCard
-          title="Usuários inativos"
-          value={inactiveUsers}
-          description="Contas desativadas"
-          icon={<UserX size={22} />}
-        />
+          <StatCard
+            title="Usuários ativos"
+            value={activeUsers}
+            description="Contas ativas no sistema"
+            icon={<UserCheck size={22} />}
+          />
+
+
+          <StatCard
+            title="Administradores"
+            value={adminUsers}
+            description="Usuários com acesso administrativo"
+            icon={<ShieldCheck size={22} />}
+          />
+
+
+          <StatCard
+            title="Usuários inativos"
+            value={inactiveUsers}
+            description="Contas desativadas"
+            icon={<UserX size={22} />}
+          />
+
 
         </div>
 
-        {/* Tabela */}
+
+        {/* Tabela de usuários */}
 
         {loading ? (
 
           <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
+
             <p className="text-gray-500">
               Carregando usuários...
             </p>
+
           </div>
 
         ) : (
 
-          <UserTable 
+          <UserTable
             users={users}
-            onCreateUser={() => setIsCreateUserModalOpen(true)}
-            />
+            onCreateUser={() =>
+              setIsCreateUserModalOpen(true)
+            }
+          />
 
         )}
 
+
+        {/* Modal de criação de usuário */}
+
         <CreateUserModal
+
           isOpen={isCreateUserModalOpen}
-          onClose={() => 
+
+          onClose={() =>
             setIsCreateUserModalOpen(false)
           }
+
           onUserCreated={() => {
+
             setIsCreateUserModalOpen(false);
+
             loadUsers();
+
           }}
+
         />
+
 
       </div>
 
     </MainLayout>
 
   );
+
 }
+
 
 export default Dashboard;

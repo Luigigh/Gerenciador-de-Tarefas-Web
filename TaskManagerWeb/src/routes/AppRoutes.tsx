@@ -8,6 +8,7 @@ import Login from "../pages/Login/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import LandingPage from "../pages/home/landingpage";
+import Projects from "../pages/Projects/Projects";
 
 function AppRoutes() {
   return (
@@ -31,7 +32,14 @@ function AppRoutes() {
             element={<Dashboard />}
           />
 
+          <Route
+            path="/projects"
+            element={<Projects />}
+          />
+
         </Route>
+
+
 
       </Routes>
     </BrowserRouter>
