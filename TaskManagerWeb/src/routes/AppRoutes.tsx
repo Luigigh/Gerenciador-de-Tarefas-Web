@@ -9,15 +9,19 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import LandingPage from "../pages/home/landingpage";
 import Projects from "../pages/Projects/Projects";
+import Tasks from "../pages/Tasks/Tasks";
 
 function AppRoutes() {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
 
         <Route
           path="/"
-          element={<LandingPage/>}
+          element={<LandingPage />}
         />
 
         <Route
@@ -25,7 +29,9 @@ function AppRoutes() {
           element={<Login />}
         />
 
-        <Route element={<ProtectedRoute />}>
+        <Route
+          element={<ProtectedRoute />}
+        >
 
           <Route
             path="/dashboard"
@@ -37,13 +43,19 @@ function AppRoutes() {
             element={<Projects />}
           />
 
+          <Route
+            path="/tasks"
+            element={<Tasks />}
+          />
+
         </Route>
 
-
-
       </Routes>
+
     </BrowserRouter>
+
   );
+
 }
 
 export default AppRoutes;
