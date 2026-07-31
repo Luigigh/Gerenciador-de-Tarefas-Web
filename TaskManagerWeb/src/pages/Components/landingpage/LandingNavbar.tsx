@@ -20,7 +20,7 @@ export default function LandingNavbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-emerald-800 flex items-center justify-center">
               <CheckSquare size={16} className="text-white" />
             </div>
             <span className="text-base font-bold text-slate-900 tracking-tight">
@@ -34,7 +34,7 @@ export default function LandingNavbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-gray-600 hover:text-slate-900 hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors"
+                className="text-sm text-gray-600 hover:text-emerald-900 hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors"
               >
                 {link.label}
               </a>
@@ -45,7 +45,7 @@ export default function LandingNavbar() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/login"
-              className="text-sm font-medium text-slate-900 bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors"
+              className="text-sm font-medium text-white-900 bg-emerald-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors"
             >
               Entrar
             </Link>
@@ -53,7 +53,7 @@ export default function LandingNavbar() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:text-slate-900 hover:bg-gray-100 transition-colors"
+            className="md:hidden p-2 rounded-lg text-gray-600 hover:text-emerald-900 hover:bg-gray-100 transition-colors"
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileOpen}
@@ -72,7 +72,7 @@ export default function LandingNavbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-sm text-gray-700 hover:text-slate-900 hover:bg-gray-50 px-3 py-2.5 rounded-lg transition-colors"
+                className="text-sm text-gray-700 hover:text-emerald-900 hover:bg-gray-50 px-3 py-2.5 rounded-lg transition-colors"
               >
                 {link.label}
               </a>

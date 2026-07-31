@@ -44,7 +44,7 @@ export default function LandingAbout() {
 
             <h2
               id="about-title"
-              className="text-3xl font-bold text-slate-900 text-balance"
+              className="text-3xl font-bold text-emerald-900 text-balance"
             >
               Uma plataforma para simplificar a gestão de projetos
             </h2>

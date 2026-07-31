@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 export default function LandingCTA() {
   return (
     <section
-      className="py-20 bg-slate-900"
+      className="py-20 bg-emerald-900"
       aria-labelledby="cta-title"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +22,7 @@ export default function LandingCTA() {
 
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 bg-white text-slate-900 text-sm font-semibold px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-emerald-900 text-sm font-semibold px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors"
           >
             Acessar o TaskManager
             <ArrowRight size={16} aria-hidden="true" />

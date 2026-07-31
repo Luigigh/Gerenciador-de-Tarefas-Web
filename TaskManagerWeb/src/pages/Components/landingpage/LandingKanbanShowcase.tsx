@@ -1,5 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-import KanbanPreview from "./kanbanPreview";
+import KanbanPreview from "./KanbanPreview";
 
 const highlights = [
   "Visualize todas as tarefas em um único quadro",
@@ -25,7 +25,7 @@ export default function LandingKanbanShowcase() {
 
             <h2
               id="kanban-showcase-title"
-              className="text-3xl font-bold text-slate-900 text-balance"
+              className="text-3xl font-bold text-emerald-900 text-balance"
             >
               Visualize o progresso do trabalho em um só lugar
             </h2>

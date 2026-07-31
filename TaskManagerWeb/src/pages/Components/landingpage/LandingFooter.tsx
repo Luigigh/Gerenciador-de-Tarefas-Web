@@ -17,10 +17,10 @@ export default function LandingFooter() {
           {/* Logo e descrição */}
           <div className="flex flex-col gap-3 max-w-xs">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-emerald-800 flex items-center justify-center">
                 <CheckSquare size={14} className="text-white" aria-hidden="true" />
               </div>
-              <span className="text-sm font-bold text-slate-900 tracking-tight">TaskManager</span>
+              <span className="text-sm font-bold text-emerald-900 tracking-tight">TaskManager</span>
             </Link>
             <p className="text-xs text-gray-500 leading-relaxed">
               Plataforma de gerenciamento de projetos e tarefas. Centralize, organize e acompanhe o
@@ -37,7 +37,7 @@ export default function LandingFooter() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm text-gray-500 hover:text-slate-900 transition-colors"
+                className="text-sm text-gray-500 hover:text-emerald-900 transition-colors"
               >
                 {link.label}
               </a>

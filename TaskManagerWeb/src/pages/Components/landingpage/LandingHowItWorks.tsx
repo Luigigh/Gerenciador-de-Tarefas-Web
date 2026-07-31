@@ -55,7 +55,7 @@ export default function LandingHowItWorks() {
         <div className="max-w-2xl mx-auto text-center mb-14">
           <h2
             id="how-it-works-title"
-            className="text-3xl font-bold text-slate-900 text-balance"
+            className="text-3xl font-bold text-emerald-900 text-balance"
           >
             Como funciona
           </h2>
@@ -95,7 +95,7 @@ export default function LandingHowItWorks() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="text-sm font-semibold text-slate-900 leading-snug">
+                    <h3 className="text-sm font-semibold text-emerald-900 leading-snug">
                       {step.title}
                     </h3>
                     <p className="text-sm text-gray-500 leading-relaxed">

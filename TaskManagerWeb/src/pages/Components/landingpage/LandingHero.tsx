@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import KanbanPreview from "./kanbanPreview";
+import KanbanPreview from "./KanbanPreview";
 
 export default function LandingHero() {
   return (
@@ -18,7 +18,7 @@ export default function LandingHero() {
               Plataforma de gestão de projetos
             </div>
 
-            <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight text-balance">
+            <h1 className="text-4xl lg:text-5xl font-bold text-emerald-900 leading-tight text-balance">
               Organize projetos. Gerencie tarefas. Entregue melhores resultados.
             </h1>
 
@@ -30,14 +30,14 @@ export default function LandingHero() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white text-sm font-medium px-5 py-3 rounded-xl hover:bg-slate-700 transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-emerald-900 text-white text-sm font-medium px-5 py-3 rounded-xl hover:bg-slate-700 transition-colors"
               >
                 Acessar o sistema
                 <ArrowRight size={16} />
               </Link>
               <a
                 href="#recursos"
-                className="inline-flex items-center justify-center gap-2 bg-white text-slate-800 text-sm font-medium px-5 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-white text-emerald-800 text-sm font-medium px-5 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
               >
                 Conhecer recursos
                 <ChevronDown size={16} />
@@ -47,17 +47,17 @@ export default function LandingHero() {
             {/* Estatísticas */}
             <div className="flex items-center gap-6 pt-2">
               <div className="flex flex-col">
-                <span className="text-2xl font-bold text-slate-900">4</span>
+                <span className="text-2xl font-bold text-emerald-900">4</span>
                 <span className="text-xs text-gray-500">Status de tarefas</span>
               </div>
               <div className="w-px h-10 bg-gray-200" />
               <div className="flex flex-col">
-                <span className="text-2xl font-bold text-slate-900">4</span>
+                <span className="text-2xl font-bold text-emerald-900">4</span>
                 <span className="text-xs text-gray-500">Níveis de prioridade</span>
               </div>
               <div className="w-px h-10 bg-gray-200" />
               <div className="flex flex-col">
-                <span className="text-2xl font-bold text-slate-900">100%</span>
+                <span className="text-2xl font-bold text-emerald-900">100%</span>
                 <span className="text-xs text-gray-500">Visual e organizado</span>
               </div>
             </div>
