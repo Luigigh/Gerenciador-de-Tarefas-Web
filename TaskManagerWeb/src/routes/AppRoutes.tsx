@@ -7,7 +7,7 @@ import {
 import Login from "../pages/Login/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
-import LandingPage from "../pages/home/landingpage";
+import LandingPage from "../pages/Components/landingpage/landingpage";
 import Projects from "../pages/Projects/Projects";
 import Tasks from "../pages/Tasks/Tasks";
 
