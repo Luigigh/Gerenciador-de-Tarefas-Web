@@ -1,22 +1,35 @@
 import api from "../api/axios";
 
+export type RoleUser =
+| "ADMIN"
+| "MANAGER"
+| "DEVELOPER"
+| "TESTER"
+| "USER";
+
 interface LoginRequest {
-    email: string;
-    password: string;
+email: string;
+password: string;
 }
 
-interface LoginResponse {
-    token: string;
+export interface LoginResponse {
+token: string;
+idUser: number;
+firstName: string;
+lastName: string;
+email: string;
+role: RoleUser;
 }
 
 export async function loginUser(
-
-    credentials: LoginRequest
+credentials: LoginRequest
 ): Promise<LoginResponse> {
-    const response = await api.post<LoginResponse>(
-        "auth/login",
-        credentials
-    );
 
-    return response.data
+const response = await api.post<LoginResponse>(
+"/auth/login",
+credentials
+);
+
+return response.data;
+
 }

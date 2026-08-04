@@ -46,14 +46,13 @@ try {
     email,
     password,
   });
-
+  
   console.log(
-    "[LOGIN] Token recebido com sucesso"
+    "[LOGIN] Login realizado:",
+    response
   );
-
-  login(
-    response.token
-  );
+  
+  login(response);
 
   console.log(
     "[LOGIN] Redirecionando para Dashboard"

@@ -2,56 +2,76 @@ import { useEffect, useState } from "react";
 
 import MainLayout from "../../layouts/MainLayout";
 
-import StatCard from "../../components/dashboard/StatCard";
-import UserTable from "../../components/dashboard/UserTable";
-import CreateUserModal from "../../components/users/CreateUserModal";
+import DashboardStats from "../../components/dashboard/DashboardStats";
+import TaskStatusChart from "../../components/dashboard/TaskStatusChart";
+import ProjectProgressCarousel from "../../components/dashboard/ProjectProgressCarousel";
+import RecentTasks from "../../components/dashboard/RecentTasks";
 
-import { getUsers } from "../../services/userService";
+import { getTasks } from "../../services/taskService";
+import { getProjects } from "../../services/projectService";
 
-import type { User } from "../../types/User";
-
-import {
-  Users,
-  UserCheck,
-  ShieldCheck,
-  UserX,
-} from "lucide-react";
-
+import type { Task } from "../../types/Task";
+import type { Project } from "../../types/Project";
 
 function Dashboard() {
 
-  const [users, setUsers] = useState<User[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [projects, setProjects] = useState<Project[]>([]);
 
   const [loading, setLoading] = useState(true);
 
-  const [
-    isCreateUserModalOpen,
-    setIsCreateUserModalOpen
-  ] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
 
-  async function loadUsers() {
+  async function loadDashboard() {
 
     try {
 
-      console.log(
-        "[DASHBOARD] Buscando usuários"
-      );
+      setLoading(true);
 
-      const data = await getUsers();
+      setError(null);
 
       console.log(
-        "[DASHBOARD] Usuários recebidos:",
-        data
+        "[DASHBOARD] Buscando dados"
       );
 
-      setUsers(data);
+
+      const [
+        tasksData,
+        projectsData
+      ] = await Promise.all([
+        getTasks(),
+        getProjects(),
+      ]);
+
+
+      console.log(
+        "[DASHBOARD] Tasks recebidas:",
+        tasksData
+      );
+
+
+      console.log(
+        "[DASHBOARD] Projetos recebidos:",
+        projectsData
+      );
+
+
+      setTasks(tasksData);
+
+      setProjects(projectsData);
 
     } catch (error) {
 
       console.error(
-        "[DASHBOARD] Erro ao carregar usuários:",
+        "[DASHBOARD] Erro ao carregar dados:",
         error
+      );
+
+
+      setError(
+        "Não foi possível carregar os dados da dashboard."
       );
 
     } finally {
@@ -65,134 +85,135 @@ function Dashboard() {
 
   useEffect(() => {
 
-    loadUsers();
+    loadDashboard();
 
   }, []);
-
-
-  const totalUsers = users.length;
-
-
-  const activeUsers = users.filter(
-    (user) => user.status === "ACTIVE"
-  ).length;
-
-
-  const adminUsers = users.filter(
-    (user) => user.role === "ADMIN"
-  ).length;
-
-
-  const inactiveUsers = users.filter(
-    (user) => user.status === "INACTIVE"
-  ).length;
 
 
   return (
 
     <MainLayout>
 
-      <div className="space-y-8">
+      <div className="space-y-6">
 
 
-        {/* Header */}
+        {/* Cabeçalho */}
 
         <div>
 
           <h1 className="text-3xl font-bold text-gray-900">
+
             Dashboard
+
           </h1>
 
+
           <p className="mt-2 text-gray-500">
-            Bem-vindo de volta, Luigi. Aqui está um resumo do sistema.
+
+            Aqui está uma visão geral dos seus projetos e tarefas.
+
           </p>
 
         </div>
 
 
-        {/* Cards */}
+        {/* Carregamento */}
 
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {loading && (
 
-
-          <StatCard
-            title="Total de usuários"
-            value={totalUsers}
-            description="Usuários cadastrados"
-            icon={<Users size={22} />}
-          />
-
-
-          <StatCard
-            title="Usuários ativos"
-            value={activeUsers}
-            description="Contas ativas no sistema"
-            icon={<UserCheck size={22} />}
-          />
-
-
-          <StatCard
-            title="Administradores"
-            value={adminUsers}
-            description="Usuários com acesso administrativo"
-            icon={<ShieldCheck size={22} />}
-          />
-
-
-          <StatCard
-            title="Usuários inativos"
-            value={inactiveUsers}
-            description="Contas desativadas"
-            icon={<UserX size={22} />}
-          />
-
-
-        </div>
-
-
-        {/* Tabela de usuários */}
-
-        {loading ? (
-
-          <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
+          <div className="rounded-2xl border border-gray-200 bg-white p-10 text-center shadow-sm">
 
             <p className="text-gray-500">
-              Carregando usuários...
+
+              Carregando dados da dashboard...
+
             </p>
 
           </div>
 
-        ) : (
+        )}
 
-          <UserTable
-            users={users}
-            onCreateUser={() =>
-              setIsCreateUserModalOpen(true)
-            }
-          />
+
+        {/* Erro */}
+
+        {!loading && error && (
+
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
+
+            <p className="font-medium text-red-600">
+
+              {error}
+
+            </p>
+
+
+            <button
+
+              onClick={loadDashboard}
+
+              className="mt-4 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700"
+
+            >
+
+              Tentar novamente
+
+            </button>
+
+          </div>
 
         )}
 
 
-        {/* Modal de criação de usuário */}
+        {/* Conteúdo */}
 
-        <CreateUserModal
+        {!loading && !error && (
 
-          isOpen={isCreateUserModalOpen}
+          <>
 
-          onClose={() =>
-            setIsCreateUserModalOpen(false)
-          }
+            {/* Cards */}
 
-          onUserCreated={() => {
+            <DashboardStats
 
-            setIsCreateUserModalOpen(false);
+              tasks={tasks}
 
-            loadUsers();
+              projects={projects}
 
-          }}
+            />
 
-        />
+
+            {/* Gráfico e progresso */}
+
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+
+              <TaskStatusChart
+
+                tasks={tasks}
+
+              />
+
+
+              <ProjectProgressCarousel
+
+                projects={projects}
+
+                tasks={tasks}
+
+              />
+
+            </div>
+
+
+            {/* Tasks recentes */}
+
+            <RecentTasks
+
+              tasks={tasks}
+
+            />
+
+          </>
+
+        )}
 
 
       </div>

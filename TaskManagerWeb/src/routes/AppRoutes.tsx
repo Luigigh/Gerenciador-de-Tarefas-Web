@@ -10,6 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import LandingPage from "../pages/Components/landingpage/landingpage";
 import Projects from "../pages/Projects/Projects";
 import Tasks from "../pages/Tasks/Tasks";
+import Users from "../pages/Users/Users";
 
 function AppRoutes() {
 
@@ -36,6 +37,11 @@ function AppRoutes() {
           <Route
             path="/dashboard"
             element={<Dashboard />}
+          />
+
+          <Route
+            path="/users"
+            element={<Users/>}
           />
 
           <Route
